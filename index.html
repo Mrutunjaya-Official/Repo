@@ -4,532 +4,573 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Notes Reader</title>
+
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
 <style>
-  /* CSS variables for theming and spacing */
-  :root {
-    --color-bg: #ffffff;
-    --color-primary: #111827;
-    --color-secondary: #6b7280;
-    --color-accent: #2563eb;
-    --color-accent-hover: #1e40af;
-    --color-card-bg: #f9fafb;
-    --color-shadow: rgba(0, 0, 0, 0.05);
-    --font-headline: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-body: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --border-radius: 0.75rem;
-    --spacing: 1.5rem;
-    --max-width: 1200px;
-  }
+:root {
+  --color-bg: #ffffff;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1e40af;
+  --color-card-bg: #f9fafb;
+  --color-shadow: rgba(0, 0, 0, 0.05);
+  --border-radius: 0.75rem;
+  --spacing: 1.5rem;
+  --max-width: 1200px;
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
-  /* Reset and base */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  body {
-    margin: 0;
-    background: var(--color-bg);
-    color: var(--color-primary);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size: 17px;
-  }
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: 17px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
 
-  a {
-    color: var(--color-accent);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  a:hover, a:focus {
-    color: var(--color-accent-hover);
-    outline: none;
-  }
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover,
+a:focus {
+  color: var(--color-accent-hover);
+  outline-offset: 2px;
+  outline-color: var(--color-accent-hover);
+  outline-style: solid;
+  outline-width: 2px;
+}
 
-  h1, h2, h3 {
-    font-family: var(--font-headline);
-    color: var(--color-primary);
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-  }
-  h1 {
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 1.2;
-  }
-  h2 {
-    font-weight: 600;
-    font-size: 1.5rem;
-  }
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
 
-  /* Layout containers */
-  .container {
-    max-width: var(--max-width);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--spacing);
-    padding-right: var(--spacing);
-  }
+h2, h3, h4 {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
 
-  header {
-    position: sticky;
-    top: 0;
-    background: var(--color-bg);
-    border-bottom: 1px solid #e5e7eb;
-    box-shadow: 0 1px 4px var(--color-shadow);
-    z-index: 1000;
-  }
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0.75rem var(--spacing);
-  }
-  .logo {
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: var(--color-primary);
-    user-select: none;
-  }
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    font-weight: 600;
-    color: var(--color-secondary);
-  }
-  .nav-links a {
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease;
-  }
-  .nav-links a:hover,
-  .nav-links a:focus {
-    background-color: var(--color-accent);
-    color: white;
-    outline: none;
-  }
+.container {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+}
 
+header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 1000;
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
 
+nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem var(--spacing);
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  user-select: none;
+}
+
+.nav-links a {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  display: inline-block;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+/* Main Layout */
+main {
+  max-width: var(--max-width);
+  margin: 3rem auto 6rem;
+  display: grid;
+  grid-template-columns: 1.25fr 3fr;
+  gap: 2rem;
+  padding: 0 var(--spacing);
+}
+
+@media (max-width: 768px) {
   main {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 2rem;
-    padding: 3rem var(--spacing) 6rem;
-    max-width: var(--max-width);
-    margin: 0 auto;
+    grid-template-columns: 1fr;
   }
+}
 
-  @media (max-width: 768px) {
-    main {
-      grid-template-columns: 1fr;
-      padding: 2rem var(--spacing) 4rem;
-    }
-  }
+/* Sidebar Notes list */
+.notes-list {
+  background: var(--color-card-bg);
+  box-shadow: 0 3px 6px var(--color-shadow);
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Sidebar notes list */
-  .notes-list {
-    background: var(--color-card-bg);
-    border-radius: var(--border-radius);
-    box-shadow: 0 3px 6px var(--color-shadow);
-    padding: var(--spacing);
-    display: flex;
-    flex-direction: column;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  .notes-list h2 {
-    margin-bottom: 1rem;
-  }
-  .notes-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    flex-grow: 1;
-  }
-  .notes-list li {
-    margin-bottom: 0.5rem;
-  }
-  .notes-list button.note-item {
-    width: 100%;
-    background: none;
-    border: none;
-    text-align: left;
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-primary);
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .notes-list button.note-item:hover,
-  .notes-list button.note-item:focus {
-    background-color: var(--color-accent);
-    color: white;
-    outline: none;
-  }
-  .notes-list button.note-item.active {
-    background-color: var(--color-accent-hover);
-    color: white;
-    cursor: default;
-  }
+.notes-list h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+  user-select: none;
+}
 
-  /* Add note button */
-  .add-note-btn {
-    margin-top: var(--spacing);
-    padding: 0.75rem;
-    font-weight: 600;
-    border-radius: var(--border-radius);
-    border: none;
-    background-color: var(--color-accent);
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .add-note-btn:hover,
-  .add-note-btn:focus {
-    background-color: var(--color-accent-hover);
-    outline: none;
-  }
+.notes-list ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  flex-grow: 1;
+}
 
-  /* Note display area */
-  .note-display {
-    background: var(--color-card-bg);
-    border-radius: var(--border-radius);
-    box-shadow: 0 3px 8px var(--color-shadow);
-    padding: var(--spacing);
-    display: flex;
-    flex-direction: column;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  .note-display h2 {
-    margin-bottom: 1rem;
-  }
-  .note-content {
-    flex-grow: 1;
-    overflow-y: auto;
-  }
+.notes-list li + li {
+  margin-top: 0.5rem;
+}
 
-  /* Markdown content styles using marked output */
-  .note-content p {
-    color: var(--color-secondary);
-    margin-bottom: 1rem;
-  }
-  .note-content h1,
-  .note-content h2,
-  .note-content h3,
-  .note-content h4 {
-    color: var(--color-primary);
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
-  .note-content a {
-    color: var(--color-accent);
-    text-decoration: underline;
-  }
-  .note-content code {
-    background-color: #e5e7eb;
-    color: #111827;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3rem;
-    font-family: 'Source Code Pro', monospace;
-    font-size: 0.9rem;
-  }
-  .note-content pre {
-    background-color: #e5e7eb;
-    color: #111827;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-    margin-bottom: 1rem;
-  }
-  .note-content ul {
-    padding-left: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .note-content blockquote {
-    border-left: 4px solid var(--color-accent);
-    padding-left: 1rem;
-    color: var(--color-accent-hover);
-    font-style: italic;
-    margin-bottom: 1rem;
-  }
+.note-item-button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
 
-  /* Add note modal */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(3px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-  }
-  .modal {
-    background: var(--color-bg);
-    border-radius: var(--border-radius);
-    box-shadow: 0 8px 24px var(--color-shadow);
-    padding: 2rem;
-    width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .modal h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-  .modal label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    display: block;
-    color: var(--color-primary);
-  }
-  .modal input[type="text"],
-  .modal textarea {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-family: var(--font-body);
-    margin-bottom: 1.25rem;
-    resize: vertical;
-  }
-  .modal textarea {
-    min-height: 150px;
-  }
-  .modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-  }
-  .btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .btn-cancel {
-    background-color: #e5e7eb;
-    color: var(--color-primary);
-  }
-  .btn-cancel:hover,
-  .btn-cancel:focus {
-    background-color: #d1d5db;
-    outline: none;
-  }
-  .btn-save {
-    background-color: var(--color-accent);
-    color: white;
-  }
-  .btn-save:hover,
-  .btn-save:focus {
-    background-color: var(--color-accent-hover);
-    outline: none;
-  }
+.note-item-button:hover,
+.note-item-button:focus {
+  background-color: var(--color-accent);
+  color: white;
+  outline: none;
+}
+
+.note-item-button.active {
+  background-color: var(--color-accent-hover);
+  color: white;
+  cursor: default;
+}
+
+.add-note-btn {
+  margin-top: var(--spacing);
+  padding: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.add-note-btn:hover,
+.add-note-btn:focus {
+  background-color: var(--color-accent-hover);
+  outline: none;
+}
+
+/* Note display section */
+.note-display {
+  background: var(--color-card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 3px 6px var(--color-shadow);
+  padding: var(--spacing);
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-display h2 {
+  margin-top: 0;
+  color: var(--color-text-primary);
+}
+
+.note-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-top: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Markdown content styles */
+.note-content p {
+  margin-bottom: 1rem;
+}
+
+.note-content h1,
+.note-content h2,
+.note-content h3,
+.note-content h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.note-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.note-content code {
+  background-color: #e5e7eb;
+  color: #111827;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.note-content pre {
+  background-color: #e5e7eb;
+  color: #111827;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: var(--color-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 8px 24px var(--color-shadow);
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+}
+
+.modal label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: var(--color-text-primary);
+}
+
+.modal input[type="text"],
+.modal textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-family: var(--font-family-base);
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  resize: vertical;
+  color: var(--color-text-primary);
+}
+
+.modal textarea {
+  min-height: 150px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.25s ease;
+}
+
+.btn-cancel {
+  background-color: #e5e7eb;
+  color: var(--color-text-primary);
+}
+.btn-cancel:hover,
+.btn-cancel:focus {
+  background-color: #d1d5db;
+  outline: none;
+}
+.btn-save {
+  background-color: var(--color-accent);
+  color: white;
+}
+.btn-save:hover,
+.btn-save:focus {
+  background-color: var(--color-accent-hover);
+  outline: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
+
 <header>
-  <nav role="navigation" aria-label="Main Navigation" class="container">
+  <nav class="container" role="navigation" aria-label="Main Navigation">
     <div class="logo" tabindex="0">Notes Reader</div>
-    <div class="nav-links" aria-label="Primary Links">
-      <a href="#" id="openAddNoteBtn">+ Add Note</a>
+    <div class="nav-links" aria-label="Primary navigation">
+      <a href="#add" id="openAddNoteBtn" role="button">+ Add Note</a>
     </div>
   </nav>
 </header>
-<main>
-  <aside class="notes-list" aria-label="Notes list">
-    <h2>My Notes</h2>
-    <ul id="notesUl" role="list" tabindex="0" aria-live="polite" aria-relevant="additions removals">
-      <!-- Notes will be dynamically inserted here -->
+
+<main class="container">
+  <aside class="notes-list" aria-label="List of saved notes">
+    <h2 id="notesListHeading">My Notes</h2>
+    <ul id="notesList" role="list" aria-labelledby="notesListHeading" tabindex="0" aria-live="polite" aria-relevant="additions removals">
+      <!-- Notes inserted here -->
     </ul>
+    <button type="button" class="add-note-btn" id="addNoteBtnMobile" aria-label="Add new note">+ Add Note</button>
   </aside>
+
   <section class="note-display" aria-label="Selected note content" tabindex="0">
-    <h2 id="noteTitle">Select a note to read</h2>
-    <article class="note-content" id="noteContent" tabindex="0">
+    <h2 id="selectedNoteTitle">Select a note to read</h2>
+    <article class="note-content" id="selectedNoteContent" tabindex="0">
       <p>Nothing selected.</p>
     </article>
   </section>
 </main>
 
 <!-- Add Note Modal -->
-<div id="addNoteModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+<div id="modalAddNote" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
   <div class="modal">
     <h2 id="modalTitle">Add New Note</h2>
-    <form id="addNoteForm">
-      <label for="noteTitleInput">Title</label>
-      <input type="text" id="noteTitleInput" name="title" required minlength="1" maxlength="100" autofocus />
+    <form id="formAddNote">
+      <label for="inputNoteTitle">Title</label>
+      <input type="text" id="inputNoteTitle" name="title" required minlength="1" maxlength="100" autocomplete="off" />
 
-      <label for="noteContentInput">Content (Markdown)</label>
-      <textarea id="noteContentInput" name="content" required placeholder="Write your note in markdown..."></textarea>
+      <label for="inputNoteContent">Content (Markdown)</label>
+      <textarea id="inputNoteContent" name="content" required placeholder="Write your note here in Markdown..."></textarea>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" id="cancelAddNoteBtn">Cancel</button>
+        <button type="button" class="btn btn-cancel" id="btnCancel">Cancel</button>
         <button type="submit" class="btn btn-save">Save Note</button>
       </div>
     </form>
   </div>
 </div>
 
-<!-- Marked.js CDN for markdown rendering -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
-  (() => {
-    // Elements references
-    const notesUl = document.getElementById('notesUl');
-    const noteTitleEl = document.getElementById('noteTitle');
-    const noteContentEl = document.getElementById('noteContent');
-    const addNoteModal = document.getElementById('addNoteModal');
-    const openAddNoteBtn = document.getElementById('openAddNoteBtn');
-    const cancelAddNoteBtn = document.getElementById('cancelAddNoteBtn');
-    const addNoteForm = document.getElementById('addNoteForm');
-
-    // Storage key for notes
+  (function(){
     const STORAGE_KEY = 'notesReaderNotes';
 
-    // Notes array loaded from localStorage
+    const notesListEl = document.getElementById('notesList');
+    const selectedNoteTitleEl = document.getElementById('selectedNoteTitle');
+    const selectedNoteContentEl = document.getElementById('selectedNoteContent');
+    const openAddNoteBtn = document.getElementById('openAddNoteBtn');
+    const addNoteBtnMobile = document.getElementById('addNoteBtnMobile');
+    const modalAddNote = document.getElementById('modalAddNote');
+    const formAddNote = document.getElementById('formAddNote');
+    const btnCancel = document.getElementById('btnCancel');
+    const inputNoteTitle = document.getElementById('inputNoteTitle');
+    const inputNoteContent = document.getElementById('inputNoteContent');
+
     let notes = [];
     let selectedNoteId = null;
 
     // Load notes from localStorage
-    function loadNotes() {
-      try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        notes = data ? JSON.parse(data) : [];
-      } catch {
+    function loadNotes(){
+      try{
+        const stored = localStorage.getItem(STORAGE_KEY);
+        notes = stored ? JSON.parse(stored) : [];
+      }catch{
         notes = [];
       }
     }
 
-    // Save notes to localStorage
-    function saveNotes() {
+    // Save notes array to localStorage
+    function saveNotes(){
       localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
     }
 
-    // Render notes list in sidebar
-    function renderNotesList() {
-      notesUl.innerHTML = '';
-      if (notes.length === 0) {
+    // Generate unique ID for notes
+    function generateId(){
+      return Math.random().toString(36).slice(2) + Date.now().toString(36);
+    }
+
+    // Render notes list
+    function renderNotesList(){
+      notesListEl.innerHTML = '';
+      if(notes.length === 0){
         const li = document.createElement('li');
         li.textContent = 'No notes saved.';
-        li.style.color = 'var(--color-secondary)';
-        notesUl.appendChild(li);
-        noteTitleEl.textContent = 'No notes available';
-        noteContentEl.innerHTML = '<p>Create a new note to get started.</p>';
+        li.style.color = 'var(--color-text-secondary)';
+        li.setAttribute('aria-live', 'polite');
+        notesListEl.appendChild(li);
+        selectedNoteTitleEl.textContent = 'No notes available';
+        selectedNoteContentEl.innerHTML = '<p>Create a new note to get started.</p>';
         return;
       }
-
-      notes.forEach((note, idx) => {
+      notes.forEach(note => {
         const li = document.createElement('li');
         const btn = document.createElement('button');
-        btn.textContent = note.title || 'Untitled';
-        btn.className = 'note-item';
         btn.type = 'button';
-        btn.setAttribute('aria-selected', selectedNoteId === note.id ? 'true' : 'false');
+        btn.className = 'note-item-button';
+        btn.textContent = note.title || 'Untitled';
+        btn.setAttribute('aria-selected', note.id === selectedNoteId ? 'true' : 'false');
         btn.addEventListener('click', () => selectNote(note.id));
-        if (selectedNoteId === note.id) {
+        if(note.id === selectedNoteId){
           btn.classList.add('active');
         }
         li.appendChild(btn);
-        notesUl.appendChild(li);
+        notesListEl.appendChild(li);
       });
     }
 
-    // Select a note by id and render its content
-    function selectNote(id) {
+    // Select note and update display
+    function selectNote(id){
       selectedNoteId = id;
-      renderNotesList();
       const note = notes.find(n => n.id === id);
-      if (!note) {
-        noteTitleEl.textContent = 'Note not found';
-        noteContentEl.innerHTML = '<p>The selected note is missing.</p>';
+      if(!note){
+        selectedNoteTitleEl.textContent = 'Note not found';
+        selectedNoteContentEl.innerHTML = '<p>The selected note is missing.</p>';
         return;
       }
-      noteTitleEl.textContent = note.title || 'Untitled';
-      const html = marked.parse(note.content || '');
-      noteContentEl.innerHTML = html;
-      noteContentEl.querySelectorAll('pre').forEach(pre => {
-        pre.setAttribute('tabindex', '0');
+      selectedNoteTitleEl.textContent = note.title || 'Untitled';
+      selectedNoteContentEl.innerHTML = marked.parse(note.content || '');
+      // Update active button styles
+      Array.from(notesListEl.querySelectorAll('button.note-item-button')).forEach(btn => {
+        btn.classList.toggle('active', btn.textContent === note.title);
+        btn.setAttribute('aria-selected', btn.textContent === note.title ? 'true' : 'false');
       });
     }
 
-    // Open add note modal
-    function openAddModal() {
-      addNoteModal.hidden = false;
-      addNoteForm.reset();
-      document.getElementById('noteTitleInput').focus();
-      // Trap focus within modal for accessibility could be improved later
+    // Open modal to add note
+    function openModal(){
+      modalAddNote.hidden = false;
+      inputNoteTitle.value = '';
+      inputNoteContent.value = '';
+      inputNoteTitle.focus();
     }
 
-    // Close add note modal
-    function closeAddModal() {
-      addNoteModal.hidden = true;
+    // Close modal
+    function closeModal(){
+      modalAddNote.hidden = true;
       openAddNoteBtn.focus();
     }
 
-    // Generate a simple unique ID for notes
-    function generateId() {
-      return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
-    }
-
-    // Handle add note form submission
-    addNoteForm.addEventListener('submit', (e) => {
+    // Handle form submission for adding note
+    formAddNote.addEventListener('submit', e => {
       e.preventDefault();
-      const title = addNoteForm.title.value.trim();
-      const content = addNoteForm.content.value.trim();
-      if (!title || !content) {
-        // Simple validation
-        return;
-      }
+      const title = inputNoteTitle.value.trim();
+      const content = inputNoteContent.value.trim();
+      if(!title || !content) return;
+
       const newNote = {
         id: generateId(),
         title,
-        content,
+        content
       };
       notes.unshift(newNote);
       saveNotes();
-      closeAddModal();
-      selectedNoteId = newNote.id;
       renderNotesList();
       selectNote(newNote.id);
+      closeModal();
     });
 
-    // Handle open and cancel button clicks
-    openAddNoteBtn.addEventListener('click', (e) => {
+    // Cancel button closes modal
+    btnCancel.addEventListener('click', () => closeModal());
+
+    // Open modal when button clicked
+    openAddNoteBtn.addEventListener('click', e => {
       e.preventDefault();
-      openAddModal();
+      openModal();
     });
-    cancelAddNoteBtn.addEventListener('click', (e) => {
+    addNoteBtnMobile.addEventListener('click', e => {
       e.preventDefault();
-      closeAddModal();
+      openModal();
     });
 
-    // Handle Escape key for modal close
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !addNoteModal.hidden) {
-        closeAddModal();
+    // Close modal on Escape
+    window.addEventListener('keydown', e => {
+      if(e.key === 'Escape' && !modalAddNote.hidden){
+        closeModal();
       }
     });
 
     // Initial load
     loadNotes();
     renderNotesList();
-    if (notes.length > 0) {
+    if(notes.length > 0){
       selectNote(notes[0].id);
     }
   })();
 </script>
+
 </body>
 </html>
 
